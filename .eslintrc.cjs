@@ -5,6 +5,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:import/recommended',
+    'plugin:import/typescript',
     'plugin:prettier/recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
@@ -20,17 +21,42 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json'
   },
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts']
+    },
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true
+      }
+    }
+  },
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh', 'react-compiler'],
   rules: {
+    'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
+    'react/jsx-filename-extension': [
+      1,
+      {
+        extensions: ['.tsx']
+      }
+    ],
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react-compiler/react-compiler': 'error',
-    'react/function-component-definition': ['error', { namedComponents: 'arrow-function' }],
     'import/no-unresolved': [
       'error',
       {
         ignore: ['.css', '.svg']
+      }
+    ],
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        css: 'always',
+        json: 'always',
+        svg: 'always'
       }
     ],
     'import/no-default-export': 'error',
